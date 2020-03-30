@@ -1,12 +1,12 @@
 const path = require('path')
-const finalhandler = require('finalhandler')
-const fs = require('fs-extra')
+const bodyParser = require('body-parser')
+const mock = require('./mock_data_middleware.js')
 
 const isLocal = process.env.SERVE_MODE === 'local'
 const port = isLocal ? 8081 : 8082
-const mockFilePath = ''
 
 const target = 'http://172.16.113.123:8080'
+
 
 module.exports = {
     open: true,
@@ -37,29 +37,12 @@ module.exports = {
     }],
 
     before(app) {
-        if (!isLocal) {
-            return
-        }
-
-        app.post('/file_upload', function (req, res, next) {
-            setTimeout(function () {
-                res.status(200).json({ data: { url: 'http://www.xxx.image' } })
-            }, 2000)
-        })
-
-        app.all('/api/**', function (req, res, next) {
-            const { originalUrl } = req
-            const ajaxPrefixs = ['/api/']
-            const jsonFilePath = `${path.resolve(__dirname, mockFilePath, originalUrl.replace(/^\/+/, '').replace(/\?[^?]*$/, ''))}.json`
-            console.info('request json path: ', jsonFilePath)
-            if (ajaxPrefixs.some(item => originalUrl.startsWith(item))) {
-                fs.readFile(jsonFilePath, 'utf8')
-                    .then(data => res.json(JSON.parse(data)))
-                    .catch(finalhandler(req, res))
-            } else {
-                next()
-            }
-        })
+        app.all('/srGasoline/*',
+            bodyParser.json(),
+            mock({
+                enable: isLocal,
+                rootPath: path.resolve(__dirname, '../mockData/'),
+            }))
     },
 
 
