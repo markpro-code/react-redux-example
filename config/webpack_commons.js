@@ -5,10 +5,6 @@ const publicPath = '/assets/'
 const clientRoot = path.resolve(__dirname, '../src')
 const outputPath = path.resolve(__dirname, '../dist/assets')
 
-const namespaceInjectLoader = {
-    loader: path.resolve(__dirname, './namespace_inject_loader.js'),
-}
-
 const optimization = {
     minimizer: [
         new TerserPlugin({
@@ -65,7 +61,6 @@ const fileLoaders = [
 module.exports = {
     clientRoot,
     outputPath,
-    namespaceInjectLoader,
     optimization,
     publicPath,
     fileLoaders,

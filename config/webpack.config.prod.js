@@ -5,7 +5,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCSSExtractPlugin = require('mini-css-extract-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const ProgressBarPlugin = require('progress-bar-webpack-plugin')
-const { clientRoot, outputPath, optimization, publicPath, fileLoaders, namespaceInjectLoader, alias } = require('./webpack_common.js')
+const { clientRoot, outputPath, optimization, publicPath, fileLoaders, alias } = require('./webpack_commons.js')
 
 
 module.exports = {
@@ -40,7 +40,7 @@ module.exports = {
     module: {
         rules: fileLoaders.concat([{
             test: /\.(js|jsx)$/,
-            use: ['babel-loader', namespaceInjectLoader],
+            use: ['babel-loader'],
             include: [clientRoot],
         },
         {

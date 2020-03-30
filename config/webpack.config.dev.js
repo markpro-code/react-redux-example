@@ -3,7 +3,7 @@ const webpack = require('webpack')
 const CaseSensitivePlugin = require('case-sensitive-paths-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
-const { clientRoot, outputPath, optimization, publicPath, fileLoaders, namespaceInjectLoader, alias } = require('./webpack_common.js')
+const { clientRoot, outputPath, optimization, publicPath, fileLoaders, alias } = require('./webpack_commons.js')
 const devServer = require('./webpack_dev_server.js')
 
 
@@ -35,7 +35,7 @@ module.exports = {
     module: {
         rules: fileLoaders.concat([{
             test: /\.(js|jsx)$/,
-            use: ['babel-loader', namespaceInjectLoader],
+            use: ['babel-loader'],
             include: [clientRoot],
         },
         {

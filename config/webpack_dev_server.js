@@ -11,10 +11,10 @@ const target = 'http://172.16.113.123:8080'
 module.exports = {
     open: true,
     contentBase: [
-        path.resolve(__dirname, '../../dist'),
+        path.resolve(__dirname, '../dist'),
     ],
     historyApiFallback: true,
-    hot: false,
+    hot: true,
     host: '0.0.0.0',
     port,
     useLocalIp: true,
@@ -27,7 +27,7 @@ module.exports = {
         return p.indexOf('.html') > -1
     },
 
-    proxy: [{
+    proxy: isLocal ? undefined : [{
         context: ['/api/**', '/socket.io/**'],
         target,
         changeOrigin: true,
@@ -51,8 +51,7 @@ module.exports = {
             const { originalUrl } = req
             const ajaxPrefixs = ['/api/']
             const jsonFilePath = `${path.resolve(__dirname, mockFilePath, originalUrl.replace(/^\/+/, '').replace(/\?[^?]*$/, ''))}.json`
-            console.info('originalUrl', originalUrl)
-            console.info('jsonFilePath: ', jsonFilePath)
+            console.info('request json path: ', jsonFilePath)
             if (ajaxPrefixs.some(item => originalUrl.startsWith(item))) {
                 fs.readFile(jsonFilePath, 'utf8')
                     .then(data => res.json(JSON.parse(data)))

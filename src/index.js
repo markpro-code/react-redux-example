@@ -1,10 +1,14 @@
+// Make sure react-hot-loader is required before react and react-dom
+import 'react-hot-loader'
+
 import React from 'react'
 import ReactDom from 'react-dom'
 import moment from 'moment'
 import 'moment-timezone'
 import { Provider } from 'react-redux'
 import { ConnectedRouter } from 'connected-react-router'
-import { LocaleProvider } from 'antd'
+import { ConfigProvider } from 'antd'
+
 import zhCN from 'antd/lib/locale-provider/zh_CN'
 import App from '@/commons/app'
 
@@ -17,15 +21,13 @@ App.init()
 const Main = require('@/pages/main').default
 
 const AppRoot = () => (
-    <React.StrictMode>
-        <Provider store={App.store}>
-            <LocaleProvider locale={zhCN}>
-                <ConnectedRouter history={App.history}>
-                    <Main />
-                </ConnectedRouter>
-            </LocaleProvider>
-        </Provider>
-    </React.StrictMode>
+    <Provider store={App.store}>
+        <ConfigProvider locale={zhCN}>
+            <ConnectedRouter history={App.history}>
+                <Main />
+            </ConnectedRouter>
+        </ConfigProvider>
+    </Provider>
 )
 
 // Render
