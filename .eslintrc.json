@@ -2,7 +2,14 @@
   "parser": "babel-eslint",
   "extends": ["eslint:recommended", "plugin:react/recommended", "prettier"],
   "plugins": ["babel", "react", "prettier"],
+  "env": {
+    "browser": true,
+    "node": true
+  },
   "rules": {
+    "no-console": "error",
+    "no-alert": "error",
+    "no-debugger": "error",
     "prettier/prettier": "error"
   }
 }
