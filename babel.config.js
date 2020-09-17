@@ -18,6 +18,7 @@ module.exports = function (api) {
     ],
 
     plugins: [
+      'inline-dotenv',
       [
         'module-resolver',
         {
