@@ -1,6 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const CaseSensitivePlugin = require('case-sensitive-paths-webpack-plugin');
+const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const {
@@ -16,6 +17,12 @@ const devServer = require('./webpack_dev_server.js');
 
 module.exports = {
   mode: 'development',
+
+  // FIXME: webpack 5 has a bug, when set target to 'browserlist' breaks HMR
+  // check: https://github.com/webpack/webpack-dev-server/issues/2758
+  target: 'web',
+  // target: 'browserslist',
+
   entry: {
     index: path.resolve(clientRoot, 'index.js'),
   },
@@ -40,6 +47,8 @@ module.exports = {
       template: path.resolve(clientRoot, 'index_dev.html'),
       filename: '../index.html',
     }),
+    new webpack.HotModuleReplacementPlugin(),
+    new ReactRefreshWebpackPlugin(),
   ],
 
   module: {

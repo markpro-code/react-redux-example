@@ -59,7 +59,6 @@ module.exports = function (api) {
           style: 'css', // `style: true` 会加载 less 文件
         },
       ],
-      'react-hot-loader/babel',
-    ].concat(isProd ? ['transform-remove-console', 'transform-remove-debugger'] : []),
+    ].concat(isProd ? ['transform-remove-console', 'transform-remove-debugger'] : ['react-refresh/babel']),
   };
 };

@@ -1,7 +1,7 @@
 // Make sure react-hot-loader is required before react and react-dom
-import 'react-hot-loader';
 
 import './polyfills.js';
+
 import React from 'react';
 import ReactDom from 'react-dom';
 import moment from 'moment';

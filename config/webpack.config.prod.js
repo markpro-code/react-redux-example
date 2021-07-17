@@ -9,6 +9,7 @@ const { clientRoot, outputPath, optimization, publicPath, fileLoaders, alias } =
 
 module.exports = {
   mode: 'production',
+  target: 'browserslist',
   entry: {
     index: path.resolve(clientRoot, 'index.js'),
   },
