@@ -6,7 +6,9 @@
   "author": "mark",
   "license": "MIT",
   "scripts": {
-    "start": "SERVE_MODE=local webpack-cli serve --config=config/webpack.config.dev.js"
+    "start": "SERVE_MODE=local webpack-cli serve --config=config/webpack.config.dev.js",
+    "build": "SERVE_MODE=local webpack-cli build --config=config/webpack.config.dev.js",
+    "build:pro": "SERVE_MODE=local webpack-cli build --config=config/webpack.config.prod.js"
   },
   "devDependencies": {
     "@babel/core": "^7.14.6",

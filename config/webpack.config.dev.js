@@ -35,7 +35,12 @@ module.exports = {
     ...optimization,
     minimize: false,
   },
-  cache: true,
+  cache: {
+    type: 'filesystem',
+    buildDependencies: {
+      config: [__filename],
+    },
+  },
   devtool: 'eval-cheap-module-source-map',
   plugins: [
     new CaseSensitivePlugin(),
