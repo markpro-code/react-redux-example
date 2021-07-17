@@ -1,24 +1,36 @@
 /* eslint-env node  */
 const mode = process.env.NODE_ENV;
 const isProd = mode === 'production';
+const coreJsVersion = require('core-js/package.json').version;
 
 module.exports = function (api) {
   api.cache(true);
   return {
     presets: [
       '@babel/preset-react',
+      '@babel/preset-env',
+      /*
       [
         '@babel/preset-env',
         {
-          forceAllTransforms: true,
+          // for browser only support ES5
+          // forceAllTransforms: true,
+
+          modules: false,
+
           useBuiltIns: 'entry',
-          corejs: '2',
+
+          corejs: {
+            version: coreJsVersion,
+            // enable polyfilling of every proposal supported by core-js
+            proposals: true,
+          },
         },
       ],
+      */
     ],
 
     plugins: [
-      'inline-dotenv',
       [
         'module-resolver',
         {
@@ -30,26 +42,22 @@ module.exports = function (api) {
       ],
       '@babel/plugin-proposal-object-rest-spread',
       '@babel/plugin-proposal-class-properties',
-      '@babel/plugin-transform-runtime',
       '@babel/plugin-transform-object-assign',
       '@babel/plugin-syntax-dynamic-import',
       [
-        'import',
+        '@babel/plugin-transform-runtime',
         {
-          libraryName: 'lodash',
-          camel2DashComponentName: false,
-          libraryDirectory: '',
-          style: false,
+          corejs: 3,
+          version: coreJsVersion,
         },
-        'lodash',
       ],
       [
         'import',
         {
           libraryName: 'antd',
-          style: 'css',
+          libraryDirectory: 'lib',
+          style: 'css', // `style: true` 会加载 less 文件
         },
-        'antd',
       ],
       'react-hot-loader/babel',
     ].concat(isProd ? ['transform-remove-console', 'transform-remove-debugger'] : []),

@@ -1,12 +1,14 @@
 // Make sure react-hot-loader is required before react and react-dom
 import 'react-hot-loader';
 
+import './polyfills.js';
 import React from 'react';
 import ReactDom from 'react-dom';
 import moment from 'moment';
 import 'moment-timezone';
 import { Provider } from 'react-redux';
 import { ConnectedRouter } from 'connected-react-router';
+
 import { ConfigProvider } from 'antd';
 
 import zhCN from 'antd/lib/locale-provider/zh_CN';
